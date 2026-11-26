@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   chanchito:
     build:
@@ -6,12 +5,14 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "3000:3000"
-    links:
+    depends_on:
       - monguito
     volumes:
       - .:/home/app
+      # node_modules queda el de la imagen, no el de la carpeta del equipo
+      - /home/app/node_modules
   monguito:
-    image: mongo
+    image: mongo:8.0
     ports:
       - "27017:27017"
     environment:
